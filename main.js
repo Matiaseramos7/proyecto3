@@ -5,6 +5,8 @@ const $botonAgregar = document.querySelector('#agregarProducto')
 const $contenedorStock = document.querySelector('.stock')
 const $modal = document.getElementById('ventanaModal');
 const $closeModal = document.getElementById('cerrarModal');
+const $buscadorInput = document.querySelector('#buscador')
+const $lupa = document.querySelector('#lupa')
 
 
 
@@ -29,11 +31,12 @@ function card() {
     lista.forEach(producto => {
         let cardProducto = document.createElement('DIV')
         cardProducto.classList.add('contenedorStock')
-        cardProducto.innerHTML = `<div class="titulo">
-        <h2 class="tituloProductos">Producto en stock</h2>
-    </div>
-        <p class="nombreProductoStock">NOMBRE DEL PRODUCTO: <span class="span"> ${producto.nombre} </span></p>
-        <p class="precioProductoStock">PRECIO DEL PRODUCTO: <span class="span"> $${producto.precio} </span></p>
+        cardProducto.innerHTML = `
+        <div class="titulo">
+            <h2 class="tituloProductos">Producto en stock</h2>
+        </div>
+        <p class="nombreProductoStock">NOMBRE DEL PRODUCTO: <span class="span"> ${producto.nombre.toUpperCase()} </span></p>
+        <p class="precioProductoStock">PRECIO DEL PRODUCTO:  <span class="span">  $${producto.precio} </span></p>
         <p class="stockDisponible">STOCK DEL PRODUCTO: <span class="span"> ${producto.stock} </span></p>`
         $contenedorStock.append(cardProducto)
     });
@@ -69,13 +72,29 @@ function productoAgregado() {
 
     $botonAgregar.addEventListener('click', () => {
         console.log(nombreProducto, precioProducto, stockProducto);
-        let producto = {
-            nombre: nombreProducto,
-            precio: precioProducto,
-            stock: stockProducto
+
+        if (isNaN(parseFloat(precioProducto)) || isNaN(parseInt(stockProducto))) {
+            alert('Los datos son inválidos. El precio y el stock deben ser números válidos.');
+            $nombreProducto.value = '';
+            $precioProducto.value = '';
+            $stockProducto.value = '';
+            return;
         }
-        lista.unshift(producto)
-        card()
+
+
+        const productoExistente = lista.find(producto => producto.nombre.toLowerCase() === nombreProducto.toLowerCase());
+
+        if (productoExistente) {
+            alert(`${nombreProducto} ya cuenta con stock.`);
+            $nombreProducto.value = '';
+            $precioProducto.value = '';
+            $stockProducto.value = '';
+            return;
+        }
+
+        const producto = new Compras(nombreProducto, parseFloat(precioProducto), parseInt(stockProducto));
+        lista.unshift(producto);
+        card();
         $nombreProducto.value = '';
         $precioProducto.value = '';
         $stockProducto.value = '';
@@ -92,48 +111,16 @@ function productoAgregado() {
         }
     });
 
-
-    // const nombreProducto = 
-
-    // const productoExistente = lista.find(producto => producto.nombre.toLowerCase() === nombreProducto)
-    // if (productoExistente) {
-    //     alert(`${nombreProducto} ya se encuentra en el stock.`)
-    //     return null;
-    // }
-    //     const precioProducto = parseInt(prompt('ingrese el precio de su producto'))
-    //     const stockProducto = parseInt(prompt('ingrese el stock de su producto agregado'))
-
-    // if (nombreProducto !== null && !isNaN(precioProducto) && !isNaN(stockProducto)) {
-    //     pregunta();
-    //     return { nombre: nombreProducto, precio: precioProducto, stock: stockProducto };
-    // }
-    // else {
-    //     alert('Datos inválidos. El producto no se agregó al stock.');
-    //     return null;
-    // }
 }
 
-// carrito.push(productoAgregado())
+let inputBuscadorLupa = ''
+$buscadorInput.addEventListener('keyup', (e) => {
+    inputBuscadorLupa = e.target.value
+})
 
-// function pregunta() {
-//     const respuesta = confirm("¿Desea agregar otro producto?")
-//     if (respuesta) {
-//         const producto = productoAgregado()
-//         if (producto != null) {
-
-//             carrito.push(producto)
-//         }
-
-//     } else {
-//         alert('No desea agregar mas productos, gracias!')
-//         const masProductos = confirm('Quieres saber si hay stock de algun producto?')
-//         if (masProductos) {
-//             demasProductos()
-//         } else {
-//             alert('Vuelva pronto!')
-//         }
-//     }
-// }
+$lupa.addEventListener('click', (e) => {
+    
+})
 
 // function demasProductos() {
 //     const palabra = prompt('Busca algun producto de la lista')
