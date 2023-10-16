@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Venta de instrumentos</title>
+</head>
+
+<body>
+
+    <main>
+        <div class="divMain">
+            <h1>Tienda de instrumentos</h1>
+        </div>
+    </main>
+    <header>
+        <div class="contenedorHeader">
+            <div class="inputsConteiner">
+                <div class="inputs">
+
+                    <input type="text" id="nombreProducto" name="nombreProducto" placeholder="Ingrese el nombre">
+
+                    <input type="text" id="precioProducto" name="precioProducto" placeholder="Ingrese el precio">
+
+                    <input type="text" id="stockProducto" name="stockProducto" placeholder="Ingrese stock">
+
+                    <button id="agregarProducto" type="button">Agregar producto</button>
+
+                </div>
+            </div>
+            <div class="div-container-productos">
+
+                <div class="stock">
+                    <div class="titulo">
+                        <h2 class="tituloProductos">Productos en stock</h2>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        <div id="ventanaModal" class="modal">
+            <div class="modal-contenido">
+                <span class="cerrar" id="cerrarModal">&times;</span>
+                <h2>Producto Agregado</h2>
+                <p>Se ha agregado un nuevo producto a la lista.</p>
+            </div>
+        </div>
+    </header>
+
+
+    <script src="./main.js"></script>
+</body>
+
+</html>
