@@ -29,7 +29,9 @@ function card() {
     lista.forEach(producto => {
         let cardProducto = document.createElement('DIV')
         cardProducto.classList.add('contenedorStock')
-        cardProducto.innerHTML = `
+        cardProducto.innerHTML = `<div class="titulo">
+        <h2 class="tituloProductos">Producto en stock</h2>
+    </div>
         <p class="nombreProductoStock">NOMBRE DEL PRODUCTO: <span class="span"> ${producto.nombre} </span></p>
         <p class="precioProductoStock">PRECIO DEL PRODUCTO: <span class="span"> $${producto.precio} </span></p>
         <p class="stockDisponible">STOCK DEL PRODUCTO: <span class="span"> ${producto.stock} </span></p>`
