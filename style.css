@@ -139,8 +139,6 @@ p {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-
-/* Estilos para la ventana modal */
 .modal {
     display: none;
     position: fixed;
@@ -187,4 +185,15 @@ p {
     height: 1.5rem;
     margin-right: 1rem;
     cursor: pointer;
+}
+
+.noSeEncontro {
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    border-radius: 1rem;
+    padding: .8rem;
+    -webkit-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
 }

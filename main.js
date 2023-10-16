@@ -6,9 +6,6 @@ const $contenedorStock = document.querySelector('.stock')
 const $modal = document.getElementById('ventanaModal');
 const $closeModal = document.getElementById('cerrarModal');
 const $buscadorInput = document.querySelector('#buscador')
-const $lupa = document.querySelector('#lupa')
-
-
 
 const Compras = function compras(nombre, precio, stock) {
     this.nombre = nombre;
@@ -113,34 +110,37 @@ function productoAgregado() {
 
 }
 
-let inputBuscadorLupa = ''
+let inputBuscadorLupa = '';
+
 $buscadorInput.addEventListener('keyup', (e) => {
-    inputBuscadorLupa = e.target.value
-})
+    inputBuscadorLupa = e.target.value.toLowerCase();
+    filtrarProductos(inputBuscadorLupa);
+});
 
-$lupa.addEventListener('click', (e) => {
-    
-})
+function filtrarProductos(filtro) {
+    const productosFiltrados = lista.filter(producto => producto.nombre.toLowerCase().includes(filtro));
 
-// function demasProductos() {
-//     const palabra = prompt('Busca algun producto de la lista')
-//     const filtrado = lista.filter(producto => {
-//         return producto.nombre.toLowerCase().includes(palabra.toLowerCase())
-//     })
+    $contenedorStock.innerHTML = '';
 
-//     if (filtrado.length > 0) {
-//         filtrado.forEach(producto => {
-//             alert(`si tenemos stock. Precio: $${producto.precio}, Stock: ${producto.stock}`)
-//         })
-//     } else {
-//         alert(`no se encontraron productos con la palabra '${palabra}'`)
-//     }
-// }
-// concatenando()
+    if (productosFiltrados.length === 0) {
+        const noCoincidencias = document.createElement('h2');
+        noCoincidencias.classList.add('noSeEncontro')
+        noCoincidencias.textContent = 'No encontramos el producto, agregalo a nuestro stock!';
+        $contenedorStock.appendChild(noCoincidencias);
+    } else {
+        productosFiltrados.forEach(producto => {
+            let cardProducto = document.createElement('DIV');
+            cardProducto.classList.add('contenedorStock');
+            cardProducto.innerHTML = `
+            <div class="titulo">
+                <h2 class="tituloProductos">Producto en Stock</h2>
+            </div>
+            <p class="nombreProductoStock">NOMBRE DEL PRODUCTO: <span class="span">${producto.nombre.toUpperCase()}</span></p>
+            <p class="precioProductoStock">PRECIO DEL PRODUCTO:  <span class="span">$${producto.precio}</span></p>
+            <p class="stockDisponible">STOCK DEL PRODUCTO: <span class="span">${producto.stock}</span></p>`;
 
-// function concatenando() {
-//     carritoFinal = carrito.concat(lista)
-//     carritoFinal.forEach(element => {
-//         console.log(element.nombre)
-//     });
-// }
+            $contenedorStock.appendChild(cardProducto);
+        });
+    }
+}
+
