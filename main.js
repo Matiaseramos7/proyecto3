@@ -98,6 +98,7 @@ function productoAgregado() {
 
         const producto = new Compras(nombreProducto, parseFloat(precioProducto), parseInt(stockProducto));
         lista.unshift(producto);
+        guardarEnLocalStorage();
         card();
         $nombreProducto.value = '';
         $precioProducto.value = '';
@@ -151,3 +152,18 @@ function filtrarProductos(filtro) {
     }
 }
 
+function guardarEnLocalStorage() {
+    const productosJSON = JSON.stringify(lista);
+    localStorage.setItem('productos', productosJSON);
+}
+function cargarDesdeLocalStorage() {
+    const productosJSON = localStorage.getItem('productos');
+
+    if (productosJSON) {
+        lista = JSON.parse(productosJSON);
+        card();
+    }
+}
+window.addEventListener('load', () => {
+    cargarDesdeLocalStorage();
+});
