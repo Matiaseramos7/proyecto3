@@ -7,6 +7,7 @@ const $modal = document.getElementById('ventanaModal');
 const $closeModal = document.getElementById('cerrarModal');
 const $buscadorInput = document.querySelector('#buscador')
 
+
 const Compras = function compras(nombre, precio, stock) {
     this.nombre = nombre;
     this.precio = precio;
@@ -20,8 +21,6 @@ let producto5 = new Compras('flauta', 9000, 10)
 let producto6 = new Compras('tambor', 8000, 9)
 
 let lista = [producto1, producto2, producto3, producto4, producto5, producto6]
-
-let carrito = []
 
 function card() {
     $contenedorStock.innerHTML = "";
@@ -68,13 +67,21 @@ function productoAgregado() {
     }
 
     $botonAgregar.addEventListener('click', () => {
-        console.log(nombreProducto, precioProducto, stockProducto);
+        const nombreProducto = $nombreProducto.value.trim();
+        const precioProducto = $precioProducto.value.trim();
+        const stockProducto = $stockProducto.value.trim();
+
+        if (nombreProducto === "" || precioProducto === "" || stockProducto === "") {
+            alert('Por favor, complete todos los campos antes de agregar el producto.');
+            return;
+        }
 
         if (isNaN(parseFloat(precioProducto)) || isNaN(parseInt(stockProducto))) {
             alert('Los datos son inválidos. El precio y el stock deben ser números válidos.');
             $nombreProducto.value = '';
             $precioProducto.value = '';
             $stockProducto.value = '';
+            $modalExistente.style.display = 'block';
             return;
         }
 
